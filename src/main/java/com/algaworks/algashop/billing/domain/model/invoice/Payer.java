@@ -1,8 +1,12 @@
 package com.algaworks.algashop.billing.domain.model.invoice;
 
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
+@Setter(AccessLevel.PRIVATE)
+@Getter
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Payer {
 
     private String fullName;
