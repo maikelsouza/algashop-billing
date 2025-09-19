@@ -29,7 +29,9 @@ public class PaymentSettings {
                 null,
                 method
         );
+    }
 
-
+    void assignGatewayCode(String gatewayCode){
+        setGatewayCode(gatewayCode);
     }
 }
