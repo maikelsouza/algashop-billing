@@ -2,8 +2,10 @@ package com.algaworks.algashop.billing.domain.model.creditcard;
 
 import com.algaworks.algashop.billing.domain.model.IdGenerator;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Setter(AccessLevel.PRIVATE)
@@ -28,11 +30,19 @@ public class CreditCard {
 
     private Integer exYear;
 
-    @Setter(AccessLevel.PUBLIC)
     private String gatewayCode;
 
     public static CreditCard brandNew(UUID customerId, String lastNumbers, String brand,
                                       Integer exMonth, Integer exYear, String gatewayCode){
+
+        Objects.requireNonNull(customerId);
+        Objects.requireNonNull(exMonth);
+        Objects.requireNonNull(exYear);
+
+        if(StringUtils.isAnyBlank(lastNumbers, brand, gatewayCode)){
+            throw new IllegalArgumentException();
+        }
+
         return new CreditCard(IdGenerator.generateTimeBasedUUID(),
                 OffsetDateTime.now(),
                 customerId,
@@ -43,4 +53,11 @@ public class CreditCard {
                 gatewayCode
                 );
      }
+
+    public void setGatewayCode(String gatewayCode) {
+        if(StringUtils.isBlank(gatewayCode)){
+            throw new IllegalArgumentException("Gateway Code is blank");
+        }
+        this.gatewayCode = gatewayCode;
+    }
 }
