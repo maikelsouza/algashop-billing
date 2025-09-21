@@ -90,7 +90,7 @@ public class Invoice {
         return InvoiceStatus.PAID.equals(this.getStatus());
     }
 
-    public void maskAsPaid(){
+    public void markAsPaid(){
         if(!isUnpaid()){
             throw new DomainException(String.format("Invoice %s with status %s cannot be marked as paid",
                     this.getId(), this.getStatus().toString().toLowerCase()));
@@ -100,7 +100,7 @@ public class Invoice {
     }
 
     public void cancel(String cancelReason){
-        if(!isCanceled()){
+        if(isCanceled()){
             throw new DomainException(String.format("Invoice %s is already canceled", this.getId()));
         }
         setCancelReason(cancelReason);
@@ -114,7 +114,6 @@ public class Invoice {
                     this.getId(), this.getStatus().toString().toLowerCase()));
         }
         this.getPaymentSettings().assignGatewayCode(code);
-
     }
 
     public void changePaymentSettings(PaymentMethod method, UUID creditCardId){
@@ -124,7 +123,6 @@ public class Invoice {
         }
         PaymentSettings paymentSettings = PaymentSettings.brandNew(method,creditCardId);
         this.setPaymentSettings(paymentSettings);
-
     }
 
 

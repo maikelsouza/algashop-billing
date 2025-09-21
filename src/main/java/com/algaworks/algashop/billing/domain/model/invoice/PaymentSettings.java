@@ -26,7 +26,7 @@ public class PaymentSettings {
 
     static PaymentSettings brandNew(PaymentMethod method, UUID creditCardId) {
         Objects.requireNonNull(method);
-        if (method.equals(PaymentMethod.CREDIT_CART)){
+        if (method.equals(PaymentMethod.CREDIT_CARD)){
             Objects.requireNonNull(creditCardId);
         }
         return new PaymentSettings(
