@@ -3,7 +3,9 @@ package com.algaworks.algashop.billing.application.invoce.management;
 import com.algaworks.algashop.billing.domain.model.creditcard.CreditCardNotFoundException;
 import com.algaworks.algashop.billing.domain.model.creditcard.CreditCardRepository;
 import com.algaworks.algashop.billing.domain.model.invoice.*;
+import com.algaworks.algashop.billing.domain.model.invoice.payment.Payment;
 import com.algaworks.algashop.billing.domain.model.invoice.payment.PaymentGatewayService;
+import com.algaworks.algashop.billing.domain.model.invoice.payment.PaymentRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,34 @@ public class InvoiceManagementApplicationService {
        invoiceRepository.saveAndFlush(invoice);
 
        return invoice.getId();
+    }
+
+    @Transactional
+    public void processPayment(UUID invoiceID){
+        Invoice invoice = invoiceRepository.findById(invoiceID).orElseThrow(InvoiceNotFoundException::new);
+        PaymentRequest paymentRequest = toPaymenentRequest(invoice);
+        Payment payment;
+        try {
+            payment = paymentGatewayService.capture(paymentRequest);
+        } catch (Exception e) {
+            String errorMessage = "Payment capture failed";
+            log.error(errorMessage);
+            invoice.cancel(errorMessage);
+            invoiceRepository.saveAndFlush(invoice);
+            return;
+        }
+        invoicingService.assignPayment(invoice, payment);
+        invoiceRepository.saveAndFlush(invoice);
+    }
+
+    private PaymentRequest toPaymenentRequest(Invoice invoice) {
+       return PaymentRequest.builder()
+               .amount(invoice.getTotalAmount())
+               .method(invoice.getPaymentSettings().getMethod())
+               .creditCardId(invoice.getPaymentSettings().getCreditCardId())
+               .payer(invoice.getPayer())
+               .invoiceId(invoice.getId())
+               .build();
     }
 
     private Set<LineItem> convertToLineItems(Set<LineItemInput> itemInputs) {
