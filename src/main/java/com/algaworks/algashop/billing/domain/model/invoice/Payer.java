@@ -1,6 +1,8 @@
 package com.algaworks.algashop.billing.domain.model.invoice;
 
 import com.algaworks.algashop.billing.domain.model.FieldValidations;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import lombok.*;
 
 import java.util.Objects;
@@ -9,6 +11,7 @@ import java.util.Objects;
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Embeddable
 public class Payer {
 
     private String fullName;
@@ -19,6 +22,7 @@ public class Payer {
 
     private String email;
 
+    @Embedded
     private Address address;
 
 

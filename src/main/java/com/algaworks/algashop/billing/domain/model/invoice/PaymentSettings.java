@@ -2,9 +2,7 @@ package com.algaworks.algashop.billing.domain.model.invoice;
 
 import com.algaworks.algashop.billing.domain.model.DomainException;
 import com.algaworks.algashop.billing.domain.model.IdGenerator;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class PaymentSettings {
 
+
     @EqualsAndHashCode.Include
     private UUID id;
 
@@ -28,7 +27,7 @@ public class PaymentSettings {
     @Enumerated(EnumType.STRING)
     private PaymentMethod method;
 
-    @OneToOne(mappedBy = "PaymentSettings")
+    @OneToOne(mappedBy = "paymentSettings")
     @Getter(AccessLevel.PRIVATE)
     @Setter(AccessLevel.PACKAGE)
     private Invoice invoice;
