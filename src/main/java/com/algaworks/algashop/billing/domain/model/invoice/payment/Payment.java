@@ -16,7 +16,7 @@ public class Payment {
 
     private String gatewayCode;
 
-    private UUID invoicedId;
+    private UUID invoiceId;
 
     private PaymentMethod method;
 
@@ -28,7 +28,7 @@ public class Payment {
         Objects.requireNonNull(method);
         Objects.requireNonNull(status);
         this.gatewayCode = gatewayCode;
-        this.invoicedId = invoicedId;
+        this.invoiceId = invoicedId;
         this.method = method;
         this.status = status;
     }

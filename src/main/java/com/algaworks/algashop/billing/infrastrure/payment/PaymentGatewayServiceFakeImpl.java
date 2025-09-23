@@ -15,7 +15,7 @@ public class PaymentGatewayServiceFakeImpl implements PaymentGatewayService {
     @Override
     public Payment capture(PaymentRequest request) {
         return Payment.builder()
-                .invoicedId(request.getInvoiceId())
+                .invoiceId(request.getInvoiceId())
                 .status(PaymentStatus.PAID)
                 .method(request.getMethod())
                 .gatewayCode(UUID.randomUUID().toString())
@@ -25,7 +25,7 @@ public class PaymentGatewayServiceFakeImpl implements PaymentGatewayService {
     @Override
     public Payment paymentFindByCody(String gatewayCode) {
         return Payment.builder()
-                .invoicedId(UUID.randomUUID())
+                .invoiceId(UUID.randomUUID())
                 .status(PaymentStatus.PAID)
                 .method(PaymentMethod.GATEWAY_BALANCE)
                 .gatewayCode(UUID.randomUUID().toString())
