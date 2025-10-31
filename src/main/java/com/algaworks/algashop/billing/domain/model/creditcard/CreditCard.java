@@ -30,9 +30,9 @@ public class CreditCard {
 
     private String brand;
 
-    private Integer exMonth;
+    private Integer expMonth;
 
-    private Integer exYear;
+    private Integer expYear;
 
     private String gatewayCode;
 
