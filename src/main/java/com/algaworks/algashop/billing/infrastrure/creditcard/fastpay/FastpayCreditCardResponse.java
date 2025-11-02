@@ -1,0 +1,21 @@
+package com.algaworks.algashop.billing.infrastrure.creditcard.fastpay;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class FastpayCreditCardResponse {
+
+    private String id;
+
+    private String lastNumbers;
+
+    private Integer expMonth;
+
+    private Integer expYear;
+
+    private String brand;
+
+
+}
