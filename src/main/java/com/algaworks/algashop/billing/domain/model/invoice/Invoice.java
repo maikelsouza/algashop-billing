@@ -5,7 +5,6 @@ import com.algaworks.algashop.billing.domain.model.DomainException;
 import com.algaworks.algashop.billing.domain.model.IdGenerator;
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.commons.collections.functors.NullIsExceptionPredicate;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -28,7 +27,7 @@ public class Invoice extends AbstractAuditableAggregateRoot<Invoice> {
 
     private UUID customerId;
 
-    private OffsetDateTime issueAt;
+    private OffsetDateTime issuedAt;
 
     private OffsetDateTime paidAt;
 
@@ -83,7 +82,7 @@ public class Invoice extends AbstractAuditableAggregateRoot<Invoice> {
                 null
         );
         invoice.registerEvent(new InvoiceIssuedEvent(invoice.getId(), invoice.getCustomerId(),
-                invoice.getOrderId(), invoice.issueAt));
+                invoice.getOrderId(), invoice.issuedAt));
         return invoice;
     }
 
