@@ -1,4 +1,4 @@
-package com.algaworks.algashop.billing.infrastrure.utility.mapper;
+package com.algaworks.algashop.billing.infrastructure.utility.mapper;
 
 import com.algaworks.algashop.billing.application.utility.Mapper;
 import org.modelmapper.ModelMapper;

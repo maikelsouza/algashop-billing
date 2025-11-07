@@ -1,4 +1,4 @@
-package com.algaworks.algashop.billing.infrastrure.payment;
+package com.algaworks.algashop.billing.infrastructure.payment;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -12,23 +12,24 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties("algashop.integrations.payment")
 @Data
 @Validated
-public class AlgaShopPaymentProperties {
+public class AlgaShopPaymentPropreties {
+
 
     @NotNull
     private AlgaShopPaymentProvider provider;
 
     @NotNull
     @Valid
-    private FastPayProperties fastpay;
+    private FastpayProperties fastpay;
 
-    private enum AlgaShopPaymentProvider{
+    public enum AlgaShopPaymentProvider{
         FAKE,
         FASTPAY
     }
 
     @Validated
     @Data
-    public static class FastPayProperties{
+    public static class FastpayProperties {
 
         @NotBlank
         private String hostname;

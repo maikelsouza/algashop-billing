@@ -1,4 +1,4 @@
-package com.algaworks.algashop.billing.infrastrure.creditcard.fastpay;
+package com.algaworks.algashop.billing.infrastructure.creditcard.fastpay;
 
 import com.algaworks.algashop.billing.domain.model.creditcard.CreditCardProviderService;
 import com.algaworks.algashop.billing.domain.model.creditcard.LimitedCreditCard;
@@ -22,6 +22,7 @@ public class CreditCardProviderServiceFastpayImpl implements CreditCardProviderS
                 .tokenizedCard(tokenizedCard)
                 .customerCode(customerId.toString())
                 .build();
+
         FastpayCreditCardResponse response = fastpayCreditCardAPIClient.create(input);
         return toLimitedCreditCard(response);
     }
@@ -40,9 +41,9 @@ public class CreditCardProviderServiceFastpayImpl implements CreditCardProviderS
     private LimitedCreditCard toLimitedCreditCard(FastpayCreditCardResponse response) {
         return LimitedCreditCard.builder()
                 .brand(response.getBrand())
-                .lastNumbers(response.getLastNumbers())
                 .expYear(response.getExpYear())
                 .expMonth(response.getExpMonth())
+                .lastNumbers(response.getLastNumbers())
                 .gatewayCode(response.getId())
                 .build();
     }

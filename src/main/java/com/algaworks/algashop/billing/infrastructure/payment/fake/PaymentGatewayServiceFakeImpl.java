@@ -1,4 +1,4 @@
-package com.algaworks.algashop.billing.infrastrure.payment.fake;
+package com.algaworks.algashop.billing.infrastructure.payment.fake;
 
 import com.algaworks.algashop.billing.domain.model.invoice.PaymentMethod;
 import com.algaworks.algashop.billing.domain.model.invoice.payment.Payment;
@@ -25,7 +25,7 @@ public class PaymentGatewayServiceFakeImpl implements PaymentGatewayService {
     }
 
     @Override
-    public Payment paymentFindByCody(String gatewayCode) {
+    public Payment findByCode(String gatewayCode) {
         return Payment.builder()
                 .invoiceId(UUID.randomUUID())
                 .status(PaymentStatus.PAID)

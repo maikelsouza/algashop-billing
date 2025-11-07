@@ -1,4 +1,4 @@
-package com.algaworks.algashop.billing.infrastrure.locale;
+package com.algaworks.algashop.billing.infrastructure.locale;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -4,5 +4,5 @@ public interface PaymentGatewayService {
 
     Payment capture(PaymentRequest request);
 
-    Payment paymentFindByCody(String gatewayCode);
+    Payment findByCode(String gatewayCode);
 }

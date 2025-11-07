@@ -1,4 +1,4 @@
-package com.algaworks.algashop.billing.infrastrure.listener;
+package com.algaworks.algashop.billing.infrastructure.listener;
 
 import com.algaworks.algashop.billing.domain.model.invoice.InvoiceCanceledEvent;
 import com.algaworks.algashop.billing.domain.model.invoice.InvoiceIssuedEvent;

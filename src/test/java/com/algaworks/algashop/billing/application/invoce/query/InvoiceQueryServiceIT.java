@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class InvoiceQueryServiceIT {
 
-
-
     @Autowired
     private InvoiceQueryService invoiceQueryService;
 

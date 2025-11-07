@@ -1,4 +1,4 @@
-package com.algaworks.algashop.billing.infrastrure.payment.fastpay;
+package com.algaworks.algashop.billing.infrastructure.payment.fastpay;
 
 import com.algaworks.algashop.billing.domain.model.invoice.payment.Payment;
 import com.algaworks.algashop.billing.domain.model.invoice.payment.PaymentGatewayService;
@@ -16,7 +16,9 @@ public class PaymentGatewayFastpayImpl implements PaymentGatewayService {
     }
 
     @Override
-    public Payment paymentFindByCody(String gatewayCode) {
+    public Payment findByCode(String gatewayCode) {
         return null;
     }
+
+
 }

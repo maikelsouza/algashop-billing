@@ -1,4 +1,4 @@
-package com.algaworks.algashop.billing.infrastrure.creditcard.fake;
+package com.algaworks.algashop.billing.infrastructure.creditcard.fake;
 
 import com.algaworks.algashop.billing.domain.model.creditcard.CreditCardProviderService;
 import com.algaworks.algashop.billing.domain.model.creditcard.LimitedCreditCard;
