@@ -44,13 +44,20 @@ dependencies {
     implementation 'org.modelmapper:modelmapper:3.2.4'
     implementation 'org.apache.commons:commons-lang3:3.18.0'
     testImplementation 'org.assertj:assertj-core:3.27.3'
+
     runtimeOnly 'org.postgresql:postgresql'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-database-postgresql'
+
     runtimeOnly 'com.h2database:h2'
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 
     mockitoAgent('org.mockito:mockito-core:5.14.2') {transitive = false}
 }
