@@ -23,9 +23,9 @@ public class FastpayPaymentInput {
 
     private String phone;
 
-    private String AddressLine1;
+    private String addressLine1;
 
-    private String AddressLine2;
+    private String addressLine2;
 
     private String zipCode;
 
