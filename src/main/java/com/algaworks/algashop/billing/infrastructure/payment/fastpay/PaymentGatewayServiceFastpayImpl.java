@@ -8,6 +8,7 @@ import com.algaworks.algashop.billing.domain.model.invoice.Payer;
 import com.algaworks.algashop.billing.domain.model.invoice.payment.Payment;
 import com.algaworks.algashop.billing.domain.model.invoice.payment.PaymentGatewayService;
 import com.algaworks.algashop.billing.domain.model.invoice.payment.PaymentRequest;
+import com.algaworks.algashop.billing.infrastructure.payment.AlgaShopPaymentPropreties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class PaymentGatewayServiceFastpayImpl implements PaymentGatewayService {
     private final FastpayPaymentAPIClient fastpayPaymentAPIClient;
 
     private final CreditCardRepository creditCardRepository;
+
+    private final AlgaShopPaymentPropreties algaShopPaymentPropreties;
 
     @Override
     public Payment capture(PaymentRequest request) {
@@ -73,7 +76,7 @@ public class PaymentGatewayServiceFastpayImpl implements PaymentGatewayService {
                     .zipCode(address.getZipCode())
                     .addressLine1(address.getStreet() + ", " + address.getNumber())
                     .addressLine2(address.getComplement())
-                    .replyToUrl("https://example.com/webhook");
+                    .replyToUrl(algaShopPaymentPropreties.getFastpay().getWebhookUrl());
         switch (request.getMethod()) {
             case CREDIT_CARD -> {
                 builder.method(FastpayPaymentMethod.CREDIT.name());
