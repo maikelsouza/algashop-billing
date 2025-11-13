@@ -2,10 +2,13 @@ package com.algaworks.algashop.billing.infrastructure.creditcard.fastpay;
 
 import com.algaworks.algashop.billing.domain.model.creditcard.CreditCardProviderService;
 import com.algaworks.algashop.billing.domain.model.creditcard.LimitedCreditCard;
+import com.algaworks.algashop.billing.presentation.BadGatewayException;
+import com.algaworks.algashop.billing.presentation.GatewayTimeoutException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -33,9 +36,13 @@ public class CreditCardProviderServiceFastpayImpl implements CreditCardProviderS
         FastpayCreditCardResponse response;
         try {
             response = fastpayCreditCardAPIClient.findById(gatewayCode);
+        } catch (ResourceAccessException e) {
+            throw new GatewayTimeoutException("Fastpay Timeout", e);
         } catch (HttpClientErrorException.NotFound e) {
             return Optional.empty();
-        }
+        } catch (HttpClientErrorException e){
+        throw new BadGatewayException("Fastpay API Bad Gateway", e);
+    }
         return Optional.of(toLimitedCreditCard(response));
     }
 

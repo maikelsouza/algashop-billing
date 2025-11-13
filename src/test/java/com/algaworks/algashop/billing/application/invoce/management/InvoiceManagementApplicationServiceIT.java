@@ -1,6 +1,7 @@
 package com.algaworks.algashop.billing.application.invoce.management;
 
 import com.algaworks.algashop.billing.domain.model.creditcard.CreditCard;
+import com.algaworks.algashop.billing.domain.model.creditcard.CreditCardNotFoundException;
 import com.algaworks.algashop.billing.domain.model.creditcard.CreditCardRepository;
 import com.algaworks.algashop.billing.domain.model.creditcard.CreditCardTestDataBuilder;
 import com.algaworks.algashop.billing.domain.model.invoice.*;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
@@ -46,7 +48,6 @@ class InvoiceManagementApplicationServiceIT {
 
     @Test
     public void shouldGenerateInvoice(){
-
 
         CreditCard creditCard = CreditCardTestDataBuilder.aCreditCard().build();
         creditCardRepository.saveAndFlush(creditCard);
@@ -146,6 +147,23 @@ class InvoiceManagementApplicationServiceIT {
         Mockito.verify(invoicingService).assignPayment(Mockito.any(Invoice.class), Mockito.any(Payment.class));
 
         Mockito.verify(invoiceEventListener).listen(Mockito.any(InvoiceIssuedEvent.class));
+    }
+
+
+
+    @Test
+    void shouldGenerationCreditCardNotFoundException() {
+        GenerateInvoiceInput input = GenerateInvoiceInputTestDataBuilder.anInput().build();
+        input.setPaymentSettings(
+                PaymentSettingsInput.builder()
+                        .method(PaymentMethod.CREDIT_CARD)
+                        .creditCardId(UUID.randomUUID())
+                        .build()
+        );
+
+        assertThatExceptionOfType(CreditCardNotFoundException.class)
+                .isThrownBy(() -> applicationService.generate(input))
+                .withMessage(String.format("Credit card %s not found", input.getPaymentSettings().getCreditCardId()));
     }
 
 

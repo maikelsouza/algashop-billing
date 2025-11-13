@@ -34,6 +34,13 @@ public class InvoiceManagementApplicationService {
    @Transactional
    public UUID generate(GenerateInvoiceInput input){
        PaymentSettingsInput paymentSettings = input.getPaymentSettings();
+       if (paymentSettings.getMethod().equals(PaymentMethod.CREDIT_CARD)) {
+           UUID creditCardId = input.getPaymentSettings().getCreditCardId();
+           UUID customerId = input.getCustomerId();
+           if (!creditCardRepository.existsByIdAndCustomerId(creditCardId, customerId)) {
+               throw new CreditCardNotFoundException(String.format("Credit card %s not found", creditCardId));
+           }
+       }
        verifyCreditCardId(paymentSettings.getCreditCardId());
        Payer payer = convertToPlayer(input.getPayer());
 

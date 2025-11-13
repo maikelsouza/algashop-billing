@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class CreditCardTestDataBuilder {
 
-    private UUID customerId = UUID.randomUUID();
+    public static final UUID customerId = UUID.fromString("6e148bd5-47f6-4022-b9da-07cfaa294f7a");
 
     private String lastNumbers = "123";
 
@@ -25,11 +25,6 @@ public class CreditCardTestDataBuilder {
 
     public CreditCard build(){
         return CreditCard.brandNew(customerId, lastNumbers, brand, expMonth,expYear, gatewayCreditCardCode);
-    }
-
-    public CreditCardTestDataBuilder customerId(UUID customerId) {
-        this.customerId = customerId;
-        return this;
     }
 
     public CreditCardTestDataBuilder lastNumbers(String lastNumbers) {
