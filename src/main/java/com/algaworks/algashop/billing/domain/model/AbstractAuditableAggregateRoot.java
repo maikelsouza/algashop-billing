@@ -31,6 +31,7 @@ public abstract class AbstractAuditableAggregateRoot<T extends AbstractAggregate
      @LastModifiedDate
      protected OffsetDateTime lastModifiedDate;
 
+
      @Version
      protected long version;
 
