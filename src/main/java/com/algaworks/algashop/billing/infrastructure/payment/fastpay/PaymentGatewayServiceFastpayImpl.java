@@ -26,7 +26,7 @@ import java.util.UUID;
 @Slf4j
 public class PaymentGatewayServiceFastpayImpl implements PaymentGatewayService {
 
-    private final FastpayPaymentAPIClient fastpayPaymentAPIClient;
+    private final ResilientFastpayPaymentAPIClient fastpayPaymentAPIClient;
 
     private final CreditCardRepository creditCardRepository;
 
@@ -42,7 +42,7 @@ public class PaymentGatewayServiceFastpayImpl implements PaymentGatewayService {
         } catch (ResourceAccessException e) {
             throw new GatewayTimeoutException("Fastpay API Timeout", e);
         } catch (HttpClientErrorException e) {
-            throw new BadGatewayException("Fastpay API Bad Gateway", e);
+            throw new BadGatewayException.ClientErrorException("Fastpay API Bad Gateway", e);
         }
         return convertToPayment(response);
     }
